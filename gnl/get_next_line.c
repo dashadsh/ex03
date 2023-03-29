@@ -15,8 +15,11 @@ char	*get_next_line(int fd)
 	if ((fd < 0) || (BUFFER_SIZE <= 0))
 		return (NULL);
 	index = 0;
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	byte = read(fd, &character, 1);
+
+	buffer = malloc(sizeof(char) * 1000);
+	byte = read(fd, &character, BUFFER_SIZE - BUFFER_SIZE + 1);
+	// buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	// byte = read(fd, &character, 1);
 	if (byte <= 0)// nothing was made AT ALL, extreme chedck
 		return (free(buffer), NULL);
 	while (byte > 0)
