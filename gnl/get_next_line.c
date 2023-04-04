@@ -15,32 +15,27 @@
 
 char	*get_next_line(int fd)
 {
-	int		index;
+	int		i = 0;
 	int		byte;
-	char	*buffer;
+	char	*buf;
 	char	c;
 
 	if ((fd < 0) || (BUFFER_SIZE <= 0))
 		return (NULL);
-	index = 0;
 
-	buffer = malloc(sizeof(char) * 1000);
+	buf = malloc(sizeof(char) * 1000);
 	byte = read(fd, &c, BUFFER_SIZE - BUFFER_SIZE + 1);
-	// buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	// byte = read(fd, &character, 1);
-	if (byte <= 0)// nothing was made AT ALL, extreme chedck
-		return (free(buffer), NULL);
+	if (byte <= 0)
+		return (free(buf), NULL);
 	while (byte > 0)
 	{
-		buffer[index++] = c;
+		buf[i++] = c;
 		if (c == '\n')
 			break ;
 		byte = read(fd, &c, 1);
 	}
-	//if ((byte <= 0) && (index == 0)) // nothing was made AT ALL, extreme chedck
-	//	return (free(buffer), NULL);
-	buffer[index] = '\0'; // may be byte0 but idx100
-	return (buffer);
+	buf[i] = '\0'; // may be byte0 but idx100
+	return (buf);
 }
 
 #include <fcntl.h>
